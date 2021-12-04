@@ -10,3 +10,5 @@ class MorseEncodeTest(unittest.TestCase):
         self.assertEqual('.----', self.temp('1'))
     def test_Morse_encode_single_punctuation_mark(self):
         self.assertEqual('.-.-.-', self.temp('.'))
+    def test_Morse_encode_intiger(self):
+        self.assertRaises(Exception, self.temp(3))
