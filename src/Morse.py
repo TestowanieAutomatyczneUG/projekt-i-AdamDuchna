@@ -5,5 +5,7 @@ def encode(text):
         return '.----'
     if text == '.':
         return '.-.-.-'
+    if type(text) != str:
+        raise TypeError(text)
 def decode(text):
     return text
