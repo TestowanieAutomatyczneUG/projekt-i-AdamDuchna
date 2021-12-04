@@ -12,3 +12,5 @@ class MorseEncodeTest(unittest.TestCase):
         self.assertEqual('.-.-.-', self.temp('.'))
     def test_Morse_encode_intiger(self):
         self.assertRaises(TypeError, self.temp,3)
+    def test_Morse_encode_list(self):
+        self.assertRaises(TypeError, self.temp, [1,4])
