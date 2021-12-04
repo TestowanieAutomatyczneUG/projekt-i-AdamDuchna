@@ -6,3 +6,5 @@ class MorseEncodeTest(unittest.TestCase):
         self.temp = encode
     def test_Morse_encode_single_letter(self):
         self.assertEqual('.-',self.temp('A'))
+    def test_Morse_encode_single_number(self):
+        self.assertEqual('.----', self.temp('1'))
