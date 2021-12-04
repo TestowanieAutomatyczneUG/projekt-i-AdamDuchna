@@ -18,3 +18,5 @@ class MorseEncodeTest(unittest.TestCase):
         self.assertRaises(TypeError, self.temp, 2.65)
     def test_Morse_encode_object(self):
         self.assertRaises(TypeError, self.temp, {})
+    def test_Morse_encode_lowercase_word(self):
+        self.assertEqual('.-.. .. ...', self.temp('lis'))
