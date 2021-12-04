@@ -14,3 +14,5 @@ class MorseEncodeTest(unittest.TestCase):
         self.assertRaises(TypeError, self.temp,3)
     def test_Morse_encode_list(self):
         self.assertRaises(TypeError, self.temp, [1,4])
+    def test_Morse_encode_double(self):
+        self.assertRaises(TypeError, self.temp, 2.65)
