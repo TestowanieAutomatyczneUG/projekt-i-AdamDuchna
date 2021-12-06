@@ -36,4 +36,19 @@ class CeasarEncodeTest(unittest.TestCase):
         self.assertRaises(TypeError, self.temp, True)
 
     def test_Ceasar_encode_word(self):
-        self.assertEqual("nrw",self.temp("kot"))
+        self.assertEqual("nrw", self.temp("kot"))
+
+    def test_Ceasar_encode_string_with_non_letters(self):
+        self.assertRaises(ValueError, self.temp, "88krzyk!!!")
+
+    def test_Ceasar_encode_empty_string(self):
+        self.assertEqual("", self.temp(""))
+
+    def test_Ceasar_encode_uppercase(self):
+        self.assertEqual("YHQGHWWD", self.temp("VENDETTA"))
+
+    def test_Ceasar_encode_letter_out_of_range(self):
+        self.assertEqual("chwd", self.temp("zeta"))
+
+    def test_Ceasar_encode_mixed_cases_and_out_of_range(self):
+        self.assertEqual("CuBz VCCbENl", self.temp("ZrYw SZZyBKi"))
