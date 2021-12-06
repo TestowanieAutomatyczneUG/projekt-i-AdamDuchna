@@ -1,7 +1,8 @@
 import unittest
+
 from hamcrest import *
 
-from src.Morse import encode
+from src.Morse import encode, decode
 
 
 class MorseEncodeTest(unittest.TestCase):
@@ -56,14 +57,33 @@ class MorseEncodeTest(unittest.TestCase):
                          '..- ---.. --.- .-. ... --... ----. - ..- ...-  .-- -..- -.-- --..',
                          self.temp('ab0 cdef123, g(h)ij"k5".6lmo//-n?p!:48qrs79tuv wxyz'))
 
+
 class MorseEncodeHamcrestTest(unittest.TestCase):
     def setUp(self):
         self.temp = encode
+
     def test_Morse_encode_return_str(self):
         assert_that(self.temp('gxggg23'), instance_of(str))
+
     def test_Morse_encode_correct_length(self):
         assert_that(self.temp('dgxggrs 24'), has_length(41))
+
     def test_Morse_encode_start_of_string(self):
         assert_that(self.temp('leonkot !.4'), starts_with('.-.. . ---'))
+
     def test_Morse_encode_regex_only_dot_dash_space(self):
         assert_that(self.temp('pies "Max" 33!!..'), matches_regexp('[ .-]*'))
+
+
+class MorseDecodeTest(unittest.TestCase):
+    def setUp(self):
+        self.temp = decode
+
+    def test_Morse_decode_single_letter(self):
+        self.assertEqual('D', self.temp('-..'))
+
+    def test_Morse_decode_single_number(self):
+        self.assertEqual('4', self.temp('....-'))
+
+    def test_Morse_decode_single_punctuation_mark(self):
+        self.assertEqual('!', self.temp('-.-.--'))

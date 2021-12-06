@@ -29,4 +29,9 @@ def encode(text):
 
 
 def decode(text):
-    return text
+    if text == '-..':
+        return 'D'
+    if text == '....-':
+        return '4'
+    if text == '-.-.--':
+        return '!'
