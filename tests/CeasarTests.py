@@ -34,3 +34,6 @@ class CeasarEncodeTest(unittest.TestCase):
 
     def test_Ceasar_encode_boolean(self):
         self.assertRaises(TypeError, self.temp, True)
+
+    def test_Ceasar_encode_word(self):
+        self.assertEqual("nrw",self.temp("kot"))
