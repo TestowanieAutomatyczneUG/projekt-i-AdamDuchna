@@ -18,7 +18,23 @@ class MorseEncodeTest(unittest.TestCase):
         self.assertRaises(TypeError, self.temp, 2.65)
     def test_Morse_encode_object(self):
         self.assertRaises(TypeError, self.temp, {})
+    def test_Morse_encode_tuple(self):
+        self.assertRaises(TypeError, self.temp, ())
+    def test_Morse_encode_boolean(self):
+        self.assertRaises(TypeError, self.temp, True)
     def test_Morse_encode_lowercase_word(self):
         self.assertEqual('.-.. .. ...', self.temp('lis'))
     def test_Morse_encode_empty_string(self):
         self.assertEqual('', self.temp(''))
+    def test_Morse_encode_letters_numbers(self):
+        self.assertEqual('.-.. .. --.. .- -.-  ....- ..... .....  -.-. ---  ..---', self.temp('lizak 455 co 2'))
+    def test_Morse_encode_letters_punctuation_mark(self):
+        self.assertEqual('.--. .. . --..--  ... .-..-. . -.- -.-.-- .-..-.', self.temp('pie, s"ek!"'))
+    def test_Morse_encode_numbers_punctuation_mark(self):
+        self.assertEqual('.---- ..... -.... --... -.-.-- .-.-.- .-.-.- .-.-.-', self.temp('1567!...'))
+    def test_Morse_encode_all_characters(self):
+        self.assertEqual('.- -... -----  -.-. -.. . ..-. .---- ..--- ...-- --..--  --. -.--. .... -.--.- .. .--- .-..-.'
+                         ' -.- ..... .-..-. .-.-.- -.... .-.. -- --- -..-. -..-. -....- -. ..--.. .--. -.-.-- ---... ..'
+                         '..- ---.. --.- .-. ... --... ----. - ..- ...-  .-- -..- -.-- --..',
+                         self.temp('ab0 cdef123, g(h)ij"k5".6lmo//-n?p!:48qrs79tuv wxyz'))
+
