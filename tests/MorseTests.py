@@ -2,12 +2,13 @@ import unittest
 
 from hamcrest import *
 
-from src.Morse import encode, decode
+from src.Morse import Morse
 
 
 class MorseEncodeTest(unittest.TestCase):
     def setUp(self):
-        self.temp = encode
+        assistant = Morse()
+        self.temp = assistant.encode
 
     def test_Morse_encode_single_letter(self):
         self.assertEqual('.-', self.temp('A'))
@@ -60,7 +61,8 @@ class MorseEncodeTest(unittest.TestCase):
 
 class MorseEncodeHamcrestTest(unittest.TestCase):
     def setUp(self):
-        self.temp = encode
+        assistant = Morse()
+        self.temp = assistant.encode
 
     def test_Morse_encode_return_str(self):
         assert_that(self.temp('gxggg23'), instance_of(str))
@@ -77,7 +79,8 @@ class MorseEncodeHamcrestTest(unittest.TestCase):
 
 class MorseDecodeTest(unittest.TestCase):
     def setUp(self):
-        self.temp = decode
+        assistant = Morse()
+        self.temp = assistant.decode
 
     def test_Morse_decode_single_letter(self):
         self.assertEqual('D', self.temp('-..'))
