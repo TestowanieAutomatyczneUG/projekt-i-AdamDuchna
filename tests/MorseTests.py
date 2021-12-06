@@ -107,4 +107,4 @@ class MorseDecodeTest(unittest.TestCase):
         self.assertRaises(TypeError, self.temp, True)
 
     def test_Morse_decode_not_in_morse(self):
-        self.assertRaises(Exception, self.temp, "hiob 222033321")
+        self.assertRaises(ValueError, self.temp, "hiob 222033321")

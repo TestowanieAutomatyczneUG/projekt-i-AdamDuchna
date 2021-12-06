@@ -31,9 +31,15 @@ def encode(text):
 
 
 def decode(text):
-    if text == '-..':
-        return 'D'
-    if text == '....-':
-        return '4'
-    if text == '-.-.--':
-        return '!'
+    if type(text) != str:
+        raise TypeError(text)
+    else:
+        if bool(re.search("[.-]",text)):
+            if text == '-..':
+                return 'D'
+            if text == '....-':
+                return '4'
+            if text == '-.-.--':
+                return '!'
+        else:
+            raise ValueError("This is alredy decoded")
