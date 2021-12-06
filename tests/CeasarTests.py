@@ -85,3 +85,21 @@ class CeasarDecodeTest(unittest.TestCase):
 
     def test_Ceasar_decode_boolean(self):
         self.assertRaises(TypeError, self.temp, True)
+
+    def test_Ceasar_decode_word(self):
+        self.assertEqual("kto", self.temp("nwr"))
+
+    def test_Ceasar_decode_string_with_non_letters(self):
+        self.assertRaises(ValueError, self.temp, "88krzyk!!!")
+
+    def test_Ceasar_decode_empty_string(self):
+        self.assertEqual("", self.temp(""))
+
+    def test_Ceasar_decode_uppercase(self):
+        self.assertEqual("VENDETTA", self.temp("YHQGHWWD"))
+
+    def test_Ceasar_decode_letter_out_of_range(self):
+        self.assertEqual("zeta", self.temp("chwd"))
+
+    def test_Ceasar_decode_mixed_cases_and_out_of_range(self):
+        self.assertEqual("ZrYw SZZyBKi", self.temp("CuBz VCCbENl"))

@@ -28,4 +28,26 @@ class Ceasar:
             raise TypeError(text)
 
     def decode(self, text):
-        return text
+        if str == type(text):
+            if bool(re.match("[A-Za-z]+", text)):
+                answ = ""
+                for letter in text:
+                    if letter == " ":
+                        answ += " "
+                    elif letter.isupper():
+                        if ord(letter) - 3 < 65:
+                            answ += chr(91 + (ord(letter)-65)-3)
+                        else:
+                            answ += chr(ord(letter) - 3)
+                    elif letter.islower():
+                        if ord(letter) - 3 < 97:
+                            answ += chr(122 + (ord(letter)-96)-3)
+                        else:
+                            answ += chr(ord(letter) - 3)
+                return answ
+            elif text == "":
+                return text
+            else:
+                raise ValueError("Contains non-letters")
+        else:
+            raise TypeError(text)
