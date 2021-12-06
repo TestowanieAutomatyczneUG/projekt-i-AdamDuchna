@@ -52,3 +52,36 @@ class CeasarEncodeTest(unittest.TestCase):
 
     def test_Ceasar_encode_mixed_cases_and_out_of_range(self):
         self.assertEqual("CuBz VCCbENl", self.temp("ZrYw SZZyBKi"))
+
+
+class CeasarDecodeTest(unittest.TestCase):
+    def setUp(self):
+        assistant = Ceasar()
+        self.temp = assistant.decode
+
+    def test_Ceasar_decode_single_uppercase_letter(self):
+        self.assertEqual('A', self.temp('D'))
+
+    def test_Ceasar_decode_single_lowercase_letter(self):
+        self.assertEqual('c', self.temp('f'))
+
+    def test_Ceasar_decode_non_letter(self):
+        self.assertRaises(ValueError, self.temp, '1')
+
+    def test_Ceasar_decode_intiger(self):
+        self.assertRaises(TypeError, self.temp, 3)
+
+    def test_Ceasar_decode_list(self):
+        self.assertRaises(TypeError, self.temp, [1, 4])
+
+    def test_Ceasar_decode_double(self):
+        self.assertRaises(TypeError, self.temp, 2.65)
+
+    def test_Ceasar__object(self):
+        self.assertRaises(TypeError, self.temp, {})
+
+    def test_Ceasar_decode_tuple(self):
+        self.assertRaises(TypeError, self.temp, ())
+
+    def test_Ceasar_decode_boolean(self):
+        self.assertRaises(TypeError, self.temp, True)
