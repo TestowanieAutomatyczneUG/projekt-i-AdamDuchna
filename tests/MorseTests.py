@@ -17,7 +17,7 @@ class MorseEncodeTest(unittest.TestCase):
         self.assertEqual('.----', self.temp('1'))
 
     def test_Morse_encode_single_punctuation_mark(self):
-        self.assertEqual('.-.-.-', self.temp('.'))
+        self.assertEqual('..--..', self.temp('?'))
 
     def test_Morse_encode_intiger(self):
         self.assertRaises(TypeError, self.temp, 3)
@@ -114,3 +114,7 @@ class MorseDecodeTest(unittest.TestCase):
 
     def test_Morse_decode_not_in_morse(self):
         self.assertRaises(ValueError, self.temp, "hiob 222033321")
+
+
+if __name__ == "__main__":
+    unittest.main()

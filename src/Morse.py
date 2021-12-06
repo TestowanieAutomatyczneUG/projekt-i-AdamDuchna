@@ -26,7 +26,9 @@ class Morse:
             raise TypeError(text)
         else:
             text = text.upper()
-            if bool(re.search("\w", text)):
+            if text == '':
+                return text
+            elif bool(re.match("[A-Z0-9 !?:""',/() ]+([A-Z0-9 !?:""',/() ]| [.-] )*", text)):
                 encoded_msg = ''
                 for letter in text:
                     if letter != ' ':
