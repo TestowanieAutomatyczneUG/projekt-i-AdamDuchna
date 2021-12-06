@@ -15,7 +15,7 @@ class CeasarEncodeTest(unittest.TestCase):
         self.assertEqual('f', self.temp('c'))
 
     def test_Ceasar_encode_non_letter(self):
-        self.assertEqual(ValueError, self.temp('1'))
+        self.assertRaises(ValueError, self.temp, '1')
 
     def test_Ceasar_encode_intiger(self):
         self.assertRaises(TypeError, self.temp, 3)
