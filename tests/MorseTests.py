@@ -87,3 +87,24 @@ class MorseDecodeTest(unittest.TestCase):
 
     def test_Morse_decode_single_punctuation_mark(self):
         self.assertEqual('!', self.temp('-.-.--'))
+
+    def test_Morse_decode_intiger(self):
+        self.assertRaises(TypeError, self.temp, 3)
+
+    def test_Morse_decode_list(self):
+        self.assertRaises(TypeError, self.temp, [1, 4])
+
+    def test_Morse_decode_double(self):
+        self.assertRaises(TypeError, self.temp, 2.65)
+
+    def test_Morse_decode_object(self):
+        self.assertRaises(TypeError, self.temp, {})
+
+    def test_Morse_decode_tuple(self):
+        self.assertRaises(TypeError, self.temp, ())
+
+    def test_Morse_decode_boolean(self):
+        self.assertRaises(TypeError, self.temp, True)
+
+    def test_Morse_decode_not_in_morse(self):
+        self.assertRaises(Exception, self.temp, "hiob 222033321")

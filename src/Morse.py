@@ -1,5 +1,7 @@
+import re
 def encode(text):
     if type(text) != str:
+        print("This datatype cannot be processed")
         raise TypeError(text)
     else:
         text = text.upper()
