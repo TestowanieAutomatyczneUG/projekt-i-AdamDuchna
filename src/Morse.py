@@ -26,24 +26,28 @@ class Morse:
             raise TypeError(text)
         else:
             text = text.upper()
-            encoded_msg = ''
-            for letter in text:
-                if letter != ' ':
-                    encoded_msg += self.morse_dict[letter] + ' '
-                else:
-                    encoded_msg += ' '
-            return encoded_msg[:-1]
+            if bool(re.search("\w", text)):
+                encoded_msg = ''
+                for letter in text:
+                    if letter != ' ':
+                        encoded_msg += self.morse_dict[letter] + ' '
+                    else:
+                        encoded_msg += ' '
+                return encoded_msg[:-1]
+            else:
+                raise ValueError("This is already encoded")
 
     def decode(self, text):
         if type(text) != str:
             raise TypeError(text)
         else:
-            if bool(re.search("[ .-]*", text)):
+            if bool(re.match("[ .-]*", text)):
                 text += ' '
                 decoded_msg = ''
                 storage = ''
+                i = 0
                 for letter in text:
-                    if (letter != ' '):
+                    if letter != ' ':
                         i = 0
                         storage += letter
                     else:
@@ -57,4 +61,4 @@ class Morse:
 
                 return decoded_msg
             else:
-                raise ValueError("This is alredy decoded")
+                raise ValueError("This is already decoded")

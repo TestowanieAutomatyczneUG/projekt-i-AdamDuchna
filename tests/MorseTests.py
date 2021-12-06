@@ -43,6 +43,9 @@ class MorseEncodeTest(unittest.TestCase):
     def test_Morse_encode_empty_string(self):
         self.assertEqual('', self.temp(''))
 
+    def test_Morse_encode_alredy_in_morse(self):
+        self.assertRaises(ValueError, self.temp, "-.- ..- .-. -.-. --.. .- -.-  ..... ....- ....-")
+
     def test_Morse_encode_letters_numbers(self):
         self.assertEqual('.-.. .. --.. .- -.-  ....- ..... .....  -.-. ---  ..---', self.temp('lizak 455 co 2'))
 
