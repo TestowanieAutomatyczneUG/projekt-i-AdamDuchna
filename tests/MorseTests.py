@@ -55,7 +55,7 @@ class MorseEncodeTest(unittest.TestCase):
     def test_Morse_encode_numbers_punctuation_mark(self):
         self.assertEqual('.---- ..... -.... --... -.-.-- .-.-.- .-.-.- .-.-.-', self.temp('1567!...'))
 
-    def test_Morse_encode_all_characters(self):
+    def test_Morse_encode_all_characters_lowercase(self):
         self.assertEqual('.- -... -----  -.-. -.. . ..-. .---- ..--- ...-- --..--  --. -.--. .... -.--.- .. .--- .-..-.'
                          ' -.- ..... .-..-. .-.-.- -.... .-.. -- --- -..-. -..-. -....- -. ..--.. .--. -.-.-- ---... ..'
                          '..- ---.. --.- .-. ... --... ----. - ..- ...-  .-- -..- -.-- --..',

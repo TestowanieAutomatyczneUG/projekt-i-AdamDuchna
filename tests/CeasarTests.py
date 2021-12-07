@@ -55,6 +55,15 @@ class CeasarEncodeTest(unittest.TestCase):
     def test_Ceasar_encode_mixed_cases_and_out_of_range(self):
         self.assertEqual("CuBz VCCbENl", self.temp("ZrYw SZZyBKi"))
 
+    def test_Ceasar_encode_whole_alphabet(self):
+        self.assertEqual("def lmn gguvwxzabcghi jk opqrs", self.temp("abc ijk ddrstuwxyzdef gh lmnop"))
+
+    def test_Ceasar_encode_whole_alphabet_uppercase(self):
+        self.assertEqual("DEF LMN GGUVWXZABCGHI JK OPQRS", self.temp("ABC IJK DDRSTUWXYZDEF GH LMNOP"))
+
+    def test_Ceasar_encode_special_signs_and_letters(self):
+        self.assertRaises(ValueError, self.temp, "abc i "F" ?SD (###  jk ddrstuwxy !!! ! ! zdef gh lmnop")
+
 
 def test_Ceasar_encoding_assertpy_is_string():
     assist = Ceasar()
@@ -130,3 +139,16 @@ class CeasarDecodeTest(unittest.TestCase):
 
     def test_Ceasar_decode_mixed_cases_and_out_of_range(self):
         self.assertEqual("ZrYw SZZyBKi", self.temp("CuBz VCCbENl"))
+
+    def test_Ceasar_decode_whole_alphabet(self):
+        self.assertEqual("abc ijk ddrstuwxyzdef gh lmnop", self.temp("def lmn gguvwxzabcghi jk opqrs"))
+
+    def test_Ceasar_decode_whole_alphabet_uppercase(self):
+        self.assertEqual("ABC IJK DDRSTUWXYZDEF GH LMNOP", self.temp("DEF LMN GGUVWXZABCGHI JK OPQRS"))
+
+    def test_Ceasar_decode_special_signs_and_letters(self):
+        self.assertRaises(ValueError, self.temp, "abc i "F" ?SD (###  jk ddrstuwxy !!! ! ! zdef gh lmnop")
+
+
+if __name__ == "__main__":
+    unittest.main()
