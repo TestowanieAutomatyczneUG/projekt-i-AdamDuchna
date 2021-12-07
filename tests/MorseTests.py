@@ -1,8 +1,23 @@
 import unittest
 
 from hamcrest import *
-
+from hamcrest.core.base_matcher import BaseMatcher
 from src.Morse import Morse
+
+class contains_numbers(BaseMatcher):
+    def __init__(self):
+        self.numbers = '0123456789'
+
+    def _matches(self, item):
+        for letter in item:
+            if letter not in self.numbers:
+                continue
+            else:
+                return True
+        return False
+
+    def describe_to(self, description):
+        description.append_text('String doesnt contain numbers')
 
 
 class MorseEncodeTest(unittest.TestCase):
@@ -80,6 +95,8 @@ class MorseEncodeHamcrestTest(unittest.TestCase):
         assert_that(self.temp('pies "Max" 33!!..'), matches_regexp('[ .-]*'))
 
 
+
+
 class MorseDecodeTest(unittest.TestCase):
     def setUp(self):
         assistant = Morse()
@@ -114,6 +131,9 @@ class MorseDecodeTest(unittest.TestCase):
 
     def test_Morse_decode_not_in_morse(self):
         self.assertRaises(ValueError, self.temp, "hiob 222033321")
+
+    def test_Morse_decode_numbers_between_letters(self):
+        assert_that(self.temp(".- --... ---.. -... -.-.-- .---- ----. ...-- ....-"), contains_numbers())
 
 
 if __name__ == "__main__":

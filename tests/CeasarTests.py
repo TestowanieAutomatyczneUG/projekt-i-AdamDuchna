@@ -1,5 +1,6 @@
 import unittest
 
+from assertpy import add_extension
 from assertpy import assert_that
 
 from src.Ceasar import Ceasar
@@ -65,29 +66,39 @@ class CeasarEncodeTest(unittest.TestCase):
         self.assertRaises(ValueError, self.temp, "abc i "F" ?SD (###  jk ddrstuwxy !!! ! ! zdef gh lmnop")
 
 
-def test_Ceasar_encoding_assertpy_is_string():
-    assist = Ceasar()
-    assert_that(assist.encode("ZAlEW wISLA")).is_type_of(str)
+class CeasarEncodeAssertpyTest(unittest.TestCase):
 
+    def setUp(self):
+        assist = Ceasar()
+        self.temp = assist.encode
 
-def test_Ceasar_encoding_assertpy_is_not_empty():
-    assist = Ceasar()
-    assert_that(assist.encode("LWS aaaa")).is_not_empty()
+    def test_Ceasar_encoding_assertpy_doesnt_contain(self):
+        assert_that(self.temp("Sliska spraWa")).is_not_containing("a")
 
+    def test_Ceasar_encoding_assertpy_is_string(self):
+        assert_that(self.temp("ZAlEW wISLA")).is_type_of(str)
 
-def test_Ceasar_encoding_assertpy_is_upper():
-    assist = Ceasar()
-    assert_that(assist.encode("CWKS")).is_upper()
+    def test_Ceasar_encoding_assertpy_is_not_empty(self):
+        assert_that(self.temp("LWS aaaa")).is_not_empty()
 
+    def test_Ceasar_encoding_assertpy_is_upper(self):
+        assert_that(self.temp("CWKS")).is_upper()
 
-def test_Ceasar_encoding_assertpy_is_lower():
-    assist = Ceasar()
-    assert_that(assist.encode("lolek")).is_lower()
+    def test_Ceasar_encoding_assertpy_is_lower(self):
+        assert_that(self.temp("lolek")).is_lower()
 
+    def test_Ceasar_encoding_assertpy_equals_ignore_cases(self):
+        assert_that(self.temp("Carthago delenda est")).is_equal_to_ignoring_case('fduwkdjr ghohqGd hvw')
 
-def test_Ceasar_encoding_assertpy_equals_ignore_cases():
-    assist = Ceasar()
-    assert_that(assist.encode("Carthago delenda est")).is_equal_to_ignoring_case('fduwkdjr ghohqGd hvw')
+    def is_not_containing(self, el):
+        for letter in self.val:
+            if letter != el:
+                continue
+            else:
+                return self.error(f'String cotains {el}')
+        return self
+
+    add_extension(is_not_containing)
 
 
 class CeasarDecodeTest(unittest.TestCase):
