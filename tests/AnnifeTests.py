@@ -1,14 +1,18 @@
 import unittest
 
-from src.Annife import Annife
+from src.Affine import Affine
 
-class AnnifeEncodeTest(unittest.TestCase):
+
+class AffineEncodeTest(unittest.TestCase):
     def setUp(self):
-        assist = Annife()
+        assist = Affine()
         self.temp = assist.encode()
-    
 
-class AnnifeDecodeTest(unittest.TestCase):
+    def test_Affine_encode_single_letter(self):
+        self.assertEqual('.-', self.temp('A'))
+
+
+class AffineDecodeTest(unittest.TestCase):
     def setUp(self):
-        assist = Annife()
+        assist = Affine()
         self.temp = assist.decode()
