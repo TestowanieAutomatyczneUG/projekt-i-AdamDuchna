@@ -38,6 +38,9 @@ class AffineEncodeTest(unittest.TestCase):
     def test_Affine_encode_boolean(self):
         self.assertRaises(TypeError, self.temp, True,2,3)
 
+    def test_Affine_encode_word(self):
+        self.assertEqual("xcqg", self.temp("pies",3,4))
+
 
 class AffineDecodeTest(unittest.TestCase):
     def setUp(self):
