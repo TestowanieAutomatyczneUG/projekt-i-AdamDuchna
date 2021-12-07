@@ -15,7 +15,7 @@ class AffineEncodeTest(unittest.TestCase):
         self.assertEqual('m', self.temp('c',5,2))
 
     def test_Ceasar_encode_non_letter(self):
-        self.assertRaises(ValueError, self.temp, '1')
+        self.assertRaises(ValueError, self.temp, '1',2,3)
 
 
 class AffineDecodeTest(unittest.TestCase):
