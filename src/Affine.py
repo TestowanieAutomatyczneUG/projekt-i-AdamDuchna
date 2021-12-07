@@ -15,7 +15,7 @@ class Affine:
             elif text == "":
                 return text
             elif a not in self.primes:
-                raise ValueError("Parameter a should be a prime number no higher than 100")
+                raise ValueError("Parameter a should be a prime number no higher than 97")
             else:
                 answ = ""
                 for letter in text:
