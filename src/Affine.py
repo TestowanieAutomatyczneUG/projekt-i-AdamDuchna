@@ -1,4 +1,7 @@
 import re
+import doctest
+
+
 class Affine:
     def __init__(self):
         self.primes = [2, 3, 5, 7, 11, 13, 17, 19,
@@ -48,14 +51,14 @@ class Affine:
                 for letter in text:
                     if letter == " ":
                         answ += " "
-                    elif ord(letter) > 64 and ord(letter) < 91:
+                    elif 64 < ord(letter) < 91:
                         if (a * (ord(letter) - 64) + b) > 26:
                             answ += chr(65 + (a * (ord(letter) - 65) + b) % 26)
                         else:
                             answ += chr(65 + (a * (ord(letter) - 65) + b))
-                    elif ord(letter) > 96 and ord(letter) < 123:
+                    elif 96 < ord(letter) < 123:
                         if (a * (ord(letter) - 96) + b) > 26:
-                            answ += chr(97 + (a * (ord(letter) - 97) + b)%26)
+                            answ += chr(97 + (a * (ord(letter) - 97) + b) % 26)
                         else:
                             answ += chr(97 + (a * (ord(letter) - 97) + b))
                 return answ
@@ -63,8 +66,8 @@ class Affine:
             raise TypeError(text)
 
     def decode(self, text, a, b):
-        return text
+        return chr(65 + ((ord(text) - 65 - b) // a))
+
 
 if __name__ == '__main__':
-    import doctest
     doctest.testmod(extraglobs={'t': Affine()})
