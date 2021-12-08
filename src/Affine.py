@@ -66,7 +66,10 @@ class Affine:
             raise TypeError(text)
 
     def decode(self, text, a, b):
-        return chr(65 + ((ord(text) - 65 - b) // a))
+        if 64 < ord(text) < 91:
+            return chr(65 + ((ord(text) - 65 - b) // a))
+        if 96 < ord(text) < 123:
+            return chr(97 + ((ord(text) - 97 - b) // a))
 
 
 if __name__ == '__main__':
