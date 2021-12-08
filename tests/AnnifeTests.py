@@ -83,26 +83,29 @@ class AffineDecodeTest(unittest.TestCase):
     def test_Affine_decode_single_lowercase_letter(self):
         self.assertEqual('c', self.temp('m', 5, 2))
         
-    def test_Affine_encode_non_letter(self):
+    def test_Affine_decode_non_letter(self):
         self.assertRaises(ValueError, self.temp, '1', 2, 3)
 
-    def test_Affine_encode_intiger(self):
+    def test_Affine_decode_intiger(self):
         self.assertRaises(TypeError, self.temp, 3, 2, 3)
 
-    def test_Affine_encode_list(self):
+    def test_Affine_decode_list(self):
         self.assertRaises(TypeError, self.temp, [1, 4], 2, 3)
 
-    def test_Affine_encode_double(self):
+    def test_Affine_decode_double(self):
         self.assertRaises(TypeError, self.temp, 2.65, 2, 3)
 
-    def test_Affine__object(self):
+    def test_Affine_decode_object(self):
         self.assertRaises(TypeError, self.temp, {}, 2, 3)
 
-    def test_Affine_encode_tuple(self):
+    def test_Affine_decode_tuple(self):
         self.assertRaises(TypeError, self.temp, (), 2, 3)
 
-    def test_Affine_encode_boolean(self):
+    def test_Affine_decode_boolean(self):
         self.assertRaises(TypeError, self.temp, True, 2, 3)
+
+    def test_Affine_decode_word(self):
+        self.assertEqual("pies", self.temp("qcgg", 3, 4))
 
     def tearDown(self):
         self.temp = None
