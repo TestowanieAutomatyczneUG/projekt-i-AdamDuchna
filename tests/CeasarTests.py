@@ -100,6 +100,9 @@ class CeasarEncodeAssertpyTest(unittest.TestCase):
 
     add_extension(is_not_containing)
 
+    def tearDown(self):
+        self.temp = None
+
 
 class CeasarDecodeTest(unittest.TestCase):
     def setUp(self):
@@ -159,6 +162,9 @@ class CeasarDecodeTest(unittest.TestCase):
 
     def test_Ceasar_decode_special_signs_and_letters(self):
         self.assertRaises(ValueError, self.temp, "abc i "F" ?SD (###  jk ddrstuwxy !!! ! ! zdef gh lmnop")
+
+    def tearDown(self):
+        self.temp = None
 
 
 if __name__ == "__main__":

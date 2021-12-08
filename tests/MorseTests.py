@@ -2,7 +2,9 @@ import unittest
 
 from hamcrest import *
 from hamcrest.core.base_matcher import BaseMatcher
+
 from src.Morse import Morse
+
 
 class contains_numbers(BaseMatcher):
     def __init__(self):
@@ -76,6 +78,9 @@ class MorseEncodeTest(unittest.TestCase):
                          '..- ---.. --.- .-. ... --... ----. - ..- ...-  .-- -..- -.-- --..',
                          self.temp('ab0 cdef123, g(h)ij"k5".6lmo//-n?p!:48qrs79tuv wxyz'))
 
+    def tearDown(self):
+        self.temp = None
+
 
 class MorseEncodeHamcrestTest(unittest.TestCase):
     def setUp(self):
@@ -93,8 +98,6 @@ class MorseEncodeHamcrestTest(unittest.TestCase):
 
     def test_Morse_encode_regex_only_dot_dash_space(self):
         assert_that(self.temp('pies "Max" 33!!..'), matches_regexp('[ .-]*'))
-
-
 
 
 class MorseDecodeTest(unittest.TestCase):
@@ -134,6 +137,9 @@ class MorseDecodeTest(unittest.TestCase):
 
     def test_Morse_decode_numbers_between_letters(self):
         assert_that(self.temp(".- --... ---.. -... -.-.-- .---- ----. ...-- ....-"), contains_numbers())
+
+    def tearDown(self):
+        self.temp = None
 
 
 if __name__ == "__main__":
