@@ -1,6 +1,4 @@
 import re
-
-
 class Affine:
     def __init__(self):
         self.primes = [2, 3, 5, 7, 11, 13, 17, 19,
@@ -9,7 +7,36 @@ class Affine:
                        83, 89, 97]
 
     def encode(self, text, a, b):
-        if type(text) == str:
+        """
+        Given a text and 2 values, return an affine encoded text or an error.
+
+        :param text: str
+        :param a: int
+        :param b: int
+        :return: str,ValueError,TypeError
+
+        >>> t.encode("AFF ! 64",7,4)
+        Traceback (most recent call last):
+        ...
+        ValueError: Contains non-letters
+        >>> t.encode("1956 annO DOMINi",9,1)
+        Traceback (most recent call last):
+        ...
+        ValueError: Contains non-letters
+        >>> t.encode("desTT aeiou",11,1)
+        'itrCC btlzn'
+        >>> t.encode(["ks",1,4,True],3,6)
+        Traceback (most recent call last):
+        ...
+        TypeError: ['ks', 1, 4, True]
+        >>> t.encode("piesek",4,6)
+        Traceback (most recent call last):
+        ...
+        ValueError: Parameter a should be a prime number no higher than 97
+
+
+        """
+        if str == type(text):
             if bool(re.search("[^a-zA-Z ]+", text)):
                 raise ValueError("Contains non-letters")
             elif text == "":
@@ -37,3 +64,7 @@ class Affine:
 
     def decode(self, text, a, b):
         return text
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod(extraglobs={'t': Affine()})
