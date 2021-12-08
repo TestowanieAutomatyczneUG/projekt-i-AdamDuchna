@@ -74,5 +74,9 @@ class AffineDecodeTest(unittest.TestCase):
         assist = Affine()
         self.temp = assist.decode
 
+    def test_Affine_decode_single_letter(self):
+        self.assertEqual('A', self.temp('F', 3, 5))
+
+
 if __name__ == "__main__":
     unittest.main()
