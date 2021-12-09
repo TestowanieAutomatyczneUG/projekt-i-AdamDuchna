@@ -105,7 +105,7 @@ class AffineDecodeTest(unittest.TestCase):
         self.assertRaises(TypeError, self.temp, True, 2, 3)
 
     def test_Affine_decode_word(self):
-        self.assertEqual("pies", self.temp("qcgg", 3, 4))
+        self.assertEqual("pies", self.temp("xcqg", 3, 4))
 
     def tearDown(self):
         self.temp = None

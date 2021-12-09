@@ -1,5 +1,9 @@
-import doctest
 import re
+
+if __name__ == '__main__':
+    import doctest
+
+    doctest.testmod()
 
 
 class Affine:
@@ -17,6 +21,7 @@ class Affine:
         :param a: int
         :param b: int
         :return: str,ValueError,TypeError
+        >>> t=Affine()
 
         >>> t.encode("AFF ! 64",7,4)
         Traceback (most recent call last):
@@ -69,13 +74,31 @@ class Affine:
         if str == type(text):
             if bool(re.search("[^a-zA-Z ]+", text)):
                 raise ValueError("Contains non-letters")
-            if 64 < ord(text) < 91:
-                return chr(65 + ((ord(text) - 65 - b) // a))
-            if 96 < ord(text) < 123:
-                return chr(97 + ((ord(text) - 97 - b) // a))
+            else:
+                answ = ""
+                for letter in text:
+                    if letter == " ":
+                        answ += " "
+                    elif 64 < ord(letter) < 91:
+                        answ+= chr(65+(self.modinv(a)*(ord(letter)-65-b))%26)
+                    elif 96 < ord(letter) < 123:
+                        answ += chr(97 + (self.modinv(a) * (ord(letter) - 97 - b)) % 26)
+                return answ
         else:
             raise TypeError(text)
 
+    def egcd(self,a, b):
+        if a == 0:
+            return b, 0, 1
+        gcd, x1, y1 = self.egcd(b % a, a)
+        x = y1 - (b // a) * x1
+        y = x1
+        return gcd, x, y
 
-if __name__ == '__main__':
-    doctest.testmod(extraglobs={'t': Affine()})
+    def modinv(self,a):
+        gcd, x, y = self.egcd(a,26)
+        if gcd != 1:
+            return None
+        else:
+            return x%26
+
