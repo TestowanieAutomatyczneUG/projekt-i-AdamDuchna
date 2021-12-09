@@ -1,5 +1,8 @@
 import unittest
 
+from nose.tools import assert_equal
+from parameterized import parameterized_class
+
 from src.Affine import Affine
 
 
@@ -72,6 +75,24 @@ class AffineEncodeTest(unittest.TestCase):
         self.temp = None
 
 
+@parameterized_class(('text', 'a', 'b', 'expected'), [
+    ('', 5, 3, ''),
+    ('tryton', 29, 25, 'eytepm'),
+    ('ToSTER', 7, 14, 'RiKRQD'),
+    ('TOSTOWNICA', 11, 4, 'FCUFCMROAE'),
+    ('abcdefghijklmnopqrstuvwxyz', 19, 5, 'fyrkdwpibungzslexqjcvohatm'),
+    ('ZXCVBNMJIKOLPYGHTUDFSATEQWR', 59, 65, 'GSBEUATYRFHMOZDKQXIWJNQPVLC'),
+
+])
+class AffineEncodeParameterizedClassTesting(unittest.TestCase):
+    def setUp(self):
+        assist = Affine()
+        self.temp = assist.encode
+
+    def test_Affine_encode_asserts_equal(self):
+        assert_equal(self.temp(self.text, self.a, self.b), self.expected)
+
+
 class AffineDecodeTest(unittest.TestCase):
     def setUp(self):
         assist = Affine()
@@ -82,7 +103,7 @@ class AffineDecodeTest(unittest.TestCase):
 
     def test_Affine_decode_single_lowercase_letter(self):
         self.assertEqual('c', self.temp('m', 5, 2))
-        
+
     def test_Affine_decode_non_letter(self):
         self.assertRaises(ValueError, self.temp, '1', 2, 3)
 

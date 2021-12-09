@@ -84,14 +84,14 @@ class Affine:
                     if letter == " ":
                         answ += " "
                     elif 64 < ord(letter) < 91:
-                        answ+= chr(65+(self.modinv(a)*(ord(letter)-65-b))%26)
+                        answ += chr(65 + (self.modinv(a) * (ord(letter) - 65 - b)) % 26)
                     elif 96 < ord(letter) < 123:
                         answ += chr(97 + (self.modinv(a) * (ord(letter) - 97 - b)) % 26)
                 return answ
         else:
             raise TypeError(text)
 
-    def egcd(self,a, b):
+    def egcd(self, a, b):
         if a == 0:
             return b, 0, 1
         gcd, x1, y1 = self.egcd(b % a, a)
@@ -99,7 +99,7 @@ class Affine:
         y = x1
         return gcd, x, y
 
-    def modinv(self,a):
-        gcd, x, y = self.egcd(a,26)
-        return x%26
+    def modinv(self, a):
+        gcd, x, y = self.egcd(a, 26)
+        return x % 26
 
