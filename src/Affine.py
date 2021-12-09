@@ -74,6 +74,10 @@ class Affine:
         if str == type(text):
             if bool(re.search("[^a-zA-Z ]+", text)):
                 raise ValueError("Contains non-letters")
+            elif text == "":
+                return text
+            elif a not in self.primes:
+                raise ValueError("Parameter a should be a prime number no higher than 97")
             else:
                 answ = ""
                 for letter in text:
@@ -97,8 +101,5 @@ class Affine:
 
     def modinv(self,a):
         gcd, x, y = self.egcd(a,26)
-        if gcd != 1:
-            return None
-        else:
-            return x%26
+        return x%26
 
