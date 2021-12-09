@@ -107,6 +107,36 @@ class AffineDecodeTest(unittest.TestCase):
     def test_Affine_decode_word(self):
         self.assertEqual("pies", self.temp("xcqg", 3, 4))
 
+    def test_Affine_decode_string_with_non_letters(self):
+        self.assertRaises(ValueError, self.temp, "88ff!!!", 3, 5)
+
+    def test_Affine_decode_empty_string(self):
+        self.assertEqual("", self.temp("", 3, 3))
+
+    def test_Affine_decode_uppercase(self):
+        self.assertEqual("ABBA", self.temp("BEEB", 3, 1))
+
+    def test_Affine_decode_letter_out_of_range(self):
+        self.assertEqual("zeta", self.temp("xghe", 7, 4))
+
+    def test_Affine_decode_mixed_cases_and_out_of_range(self):
+        self.assertEqual("ZmioTT WiaTTRR", self.temp("NakiPP OkePPHH", 17, 4))
+
+    def test_Affine_decode_whole_alphabet(self):
+        self.assertEqual("abc ijk ddrstuwxyzdef gh lmnop", self.temp("exq atm jjpibugzsljcv oh fyrkd", 19, 4))
+
+    def test_Affine_decode_whole_alphabet_uppercase(self):
+        self.assertEqual("ABC IJK DDRSTUWXYZDEF GH LMNOP", self.temp("GDA IFC XXHEBYSPMJXUR OL ZWTQN", 23, 6))
+
+    def test_Affine_decode_special_signs_and_letters(self):
+        self.assertRaises(ValueError, self.temp, "abc i "F" ?SD (###  jk ddrstuwxy !!! ! ! zdef gh lmnop", 3, 7)
+
+    def test_Affine_decode_a_out_of_range(self):
+        self.assertRaises(ValueError, self.temp, "test", 120, 7)
+
+    def test_Affine_decode_a_non_prime(self):
+        self.assertRaises(ValueError, self.temp, "test", 4, 2)
+
     def tearDown(self):
         self.temp = None
 
