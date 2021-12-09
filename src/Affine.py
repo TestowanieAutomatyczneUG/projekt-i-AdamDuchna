@@ -102,4 +102,3 @@ class Affine:
     def modinv(self, a):
         gcd, x, y = self.egcd(a, 26)
         return x % 26
-

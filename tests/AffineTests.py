@@ -1,6 +1,7 @@
 import unittest
 
 from nose.tools import assert_equal
+from parameterized import parameterized
 from parameterized import parameterized_class
 
 from src.Affine import Affine
@@ -160,6 +161,23 @@ class AffineDecodeTest(unittest.TestCase):
 
     def tearDown(self):
         self.temp = None
+
+
+class AffineDecodeParameterizedClassTesting(unittest.TestCase):
+    def setUp(self):
+        assist = Affine()
+        self.temp = assist.decode
+
+    @parameterized.expand([
+        ('', 5, 3, ''),
+        ('eytepm', 29, 25, 'tryton'),
+        ('RiKRQD', 7, 14, 'ToSTER'),
+        ('FCUFCMROAE', 11, 4, 'TOSTOWNICA'),
+        ('fyrkdwpibungzslexqjcvohatm', 19, 5, 'abcdefghijklmnopqrstuvwxyz'),
+        ('GSBEUATYRFHMOZDKQXIWJNQPVLC', 59, 65, 'ZXCVBNMJIKOLPYGHTUDFSATEQWR'),
+    ])
+    def test_Affine_encode_asserts_equal(self, text, a, b, expected):
+        assert_equal(self.temp(text, a, b), expected)
 
 
 if __name__ == "__main__":
