@@ -1,6 +1,6 @@
 import unittest
 
-from nose.tools import assert_equal
+from nose.tools import assert_equal, assert_raises
 from parameterized import parameterized
 from parameterized import parameterized_class
 
@@ -178,6 +178,17 @@ class AffineDecodeParameterizedClassTesting(unittest.TestCase):
     ])
     def test_Affine_encode_asserts_equal(self, text, a, b, expected):
         assert_equal(self.temp(text, a, b), expected)
+
+    @parameterized.expand([
+        ('afd', 6, 3, ValueError),
+        ('GSB!', 59, 65, ValueError),
+        ('1134GSB!', 59, 65, ValueError),
+        ([], 59, 65, TypeError),
+        ({}, 59, 65, TypeError),
+        (True, 3, 7, TypeError),
+    ])
+    def test_Affine_encode_asserts_equal(self, text, a, b, expected):
+        assert_raises(expected,self.temp,text,a,b)
 
 
 if __name__ == "__main__":
