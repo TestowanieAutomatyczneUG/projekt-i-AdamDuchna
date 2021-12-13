@@ -1,9 +1,27 @@
+import csv
 import unittest
 
 from assertpy import add_extension
 from assertpy import assert_that
+from parameterized import parameterized
+from nose.tools import assert_equal
 
 from src.Ceasar import Ceasar
+
+
+class CeasarParameterizedTest(unittest.TestCase):
+    tests=[]
+    with open('CeasarTestValues.csv', 'r') as csv_file:
+        csv_reader = csv.reader(csv_file)
+        for line in csv_reader:
+            tests.append((line[0],line[1]))
+    def setUp(self):
+        assist = Ceasar()
+        self.tmp = assist.encode
+    @parameterized.expand(tests)
+    def test_parameterized_Ceasar_equals(self,input,output):
+        assert_equal(self.tmp(input),output)
+
 
 
 class CeasarEncodeTest(unittest.TestCase):
