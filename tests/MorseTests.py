@@ -1,0 +1,146 @@
+import unittest
+
+from hamcrest import *
+from hamcrest.core.base_matcher import BaseMatcher
+
+from src.Morse import Morse
+
+
+class contains_numbers(BaseMatcher):
+    def __init__(self):
+        self.numbers = '0123456789'
+
+    def _matches(self, item):
+        for letter in item:
+            if letter not in self.numbers:
+                continue
+            else:
+                return True
+        return False
+
+    def describe_to(self, description):
+        description.append_text('String doesnt contain numbers')
+
+
+class MorseEncodeTest(unittest.TestCase):
+    def setUp(self):
+        assistant = Morse()
+        self.temp = assistant.encode
+
+    def test_Morse_encode_single_letter(self):
+        self.assertEqual('.-', self.temp('A'))
+
+    def test_Morse_encode_single_number(self):
+        self.assertEqual('.----', self.temp('1'))
+
+    def test_Morse_encode_single_punctuation_mark(self):
+        self.assertEqual('..--..', self.temp('?'))
+
+    def test_Morse_encode_intiger(self):
+        self.assertRaises(TypeError, self.temp, 3)
+
+    def test_Morse_encode_list(self):
+        self.assertRaises(TypeError, self.temp, [1, 4])
+
+    def test_Morse_encode_double(self):
+        self.assertRaises(TypeError, self.temp, 2.65)
+
+    def test_Morse_encode_object(self):
+        self.assertRaises(TypeError, self.temp, {})
+
+    def test_Morse_encode_tuple(self):
+        self.assertRaises(TypeError, self.temp, ())
+
+    def test_Morse_encode_boolean(self):
+        self.assertRaises(TypeError, self.temp, True)
+
+    def test_Morse_encode_lowercase_word(self):
+        self.assertEqual('.-.. .. ...', self.temp('lis'))
+
+    def test_Morse_encode_empty_string(self):
+        self.assertEqual('', self.temp(''))
+
+    def test_Morse_encode_alredy_in_morse(self):
+        self.assertRaises(ValueError, self.temp, "-.- ..- .-. -.-. --.. .- -.-  ..... ....- ....-")
+
+    def test_Morse_encode_letters_numbers(self):
+        self.assertEqual('.-.. .. --.. .- -.-  ....- ..... .....  -.-. ---  ..---', self.temp('lizak 455 co 2'))
+
+    def test_Morse_encode_letters_punctuation_mark(self):
+        self.assertEqual('.--. .. . --..--  ... .-..-. . -.- -.-.-- .-..-.', self.temp('pie, s"ek!"'))
+
+    def test_Morse_encode_numbers_punctuation_mark(self):
+        self.assertEqual('.---- ..... -.... --... -.-.-- .-.-.- .-.-.- .-.-.-', self.temp('1567!...'))
+
+    def test_Morse_encode_all_characters_lowercase(self):
+        self.assertEqual('.- -... -----  -.-. -.. . ..-. .---- ..--- ...-- --..--  --. -.--. .... -.--.- .. .--- .-..-.'
+                         ' -.- ..... .-..-. .-.-.- -.... .-.. -- --- -..-. -..-. -....- -. ..--.. .--. -.-.-- ---... ..'
+                         '..- ---.. --.- .-. ... --... ----. - ..- ...-  .-- -..- -.-- --..',
+                         self.temp('ab0 cdef123, g(h)ij"k5".6lmo//-n?p!:48qrs79tuv wxyz'))
+
+    def tearDown(self):
+        self.temp = None
+
+
+class MorseEncodeHamcrestTest(unittest.TestCase):
+    def setUp(self):
+        assistant = Morse()
+        self.temp = assistant.encode
+
+    def test_Morse_encode_return_str(self):
+        assert_that(self.temp('gxggg23'), instance_of(str))
+
+    def test_Morse_encode_correct_length(self):
+        assert_that(self.temp('dgxggrs 24'), has_length(41))
+
+    def test_Morse_encode_start_of_string(self):
+        assert_that(self.temp('leonkot !.4'), starts_with('.-.. . ---'))
+
+    def test_Morse_encode_regex_only_dot_dash_space(self):
+        assert_that(self.temp('pies "Max" 33!!..'), matches_regexp('[ .-]*'))
+
+
+class MorseDecodeTest(unittest.TestCase):
+    def setUp(self):
+        assistant = Morse()
+        self.temp = assistant.decode
+
+    def test_Morse_decode_single_letter(self):
+        self.assertEqual('D', self.temp('-..'))
+
+    def test_Morse_decode_single_number(self):
+        self.assertEqual('4', self.temp('....-'))
+
+    def test_Morse_decode_single_punctuation_mark(self):
+        self.assertEqual('!', self.temp('-.-.--'))
+
+    def test_Morse_decode_intiger(self):
+        self.assertRaises(TypeError, self.temp, 3)
+
+    def test_Morse_decode_list(self):
+        self.assertRaises(TypeError, self.temp, [1, 4])
+
+    def test_Morse_decode_double(self):
+        self.assertRaises(TypeError, self.temp, 2.65)
+
+    def test_Morse_decode_object(self):
+        self.assertRaises(TypeError, self.temp, {})
+
+    def test_Morse_decode_tuple(self):
+        self.assertRaises(TypeError, self.temp, ())
+
+    def test_Morse_decode_boolean(self):
+        self.assertRaises(TypeError, self.temp, True)
+
+    def test_Morse_decode_not_in_morse(self):
+        self.assertRaises(ValueError, self.temp, "hiob 222033321")
+
+    def test_Morse_decode_numbers_between_letters(self):
+        assert_that(self.temp(".- --... ---.. -... -.-.-- .---- ----. ...-- ....-"), contains_numbers())
+
+    def tearDown(self):
+        self.temp = None
+
+
+if __name__ == "__main__":
+    unittest.main()
